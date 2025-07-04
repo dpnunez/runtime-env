@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "NEXT_PUBLIC_API_URL=http://jsonplaceholder.typicode.com next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "start": "NEXT_PUBLIC_API_URL=http://jsonplaceholder.typicode.com next start",
     "lint": "next lint"
   },
   "dependencies": {
