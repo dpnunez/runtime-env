@@ -27,12 +27,7 @@ for i in $(env | grep -E "^$PREFIX")
 do
     key=$(echo $i | cut -d '=' -f 1)
     value=$(echo $i | cut -d '=' -f 2-)
-    # contar e substituir todas as ocorrências de "$key" por "$value" em todos os arquivos, ignorando node_modules
-    count=$(find "$BUILD_DIR" -type f -exec grep -o "\"$key\"" {} + | wc -l)
-    echo "Encontrados ${count} ocorrências de ${key}"
-    find "$BUILD_DIR" -type f -exec sed -i "s|\"$key\"|\"$value\"|g" {} +
-
-    echo "Substituídas ${count} ocorrências de ${key}"
+    find "$BUILD_DIR" -type d -name node_modules -prune -o -type f -exec sed -i "s|${key}|${value}|g" {} +
 done
 
 

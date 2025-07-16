@@ -53,10 +53,9 @@ COPY --from=builder /app/public ./public
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# Copia o script para a imagem final e dá permissão de execução
 COPY --from=builder /app/scripts/override-env.sh ./scripts/override-env.sh
 RUN chmod +x ./scripts/override-env.sh
+RUN chown -R nextjs:nodejs /app
 
 USER nextjs
 
@@ -67,4 +66,4 @@ ENV PORT=3000
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/config/next-config-js/output
 ENV HOSTNAME="0.0.0.0"
-CMD ["sh", "-c", "/app/scripts/override-env.sh --buildDir . --prefix OVERRIDE_ && exec node server.js"]
+CMD ["sh", "-c", "sh ./scripts/override-env.sh --buildDir ./ --prefix OVERRIDE_ && exec node server.js"]
