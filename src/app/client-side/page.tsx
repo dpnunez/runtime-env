@@ -7,7 +7,7 @@ export default function ClientSidePage() {
   const [envClientSide, setEnvClientSide] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log(api);
+    console.log(api.defaults.baseURL);
     setEnvClientSide(process.env.NEXT_PUBLIC_CLIENT_SIDE_ENV || null);
   }, []);
 
